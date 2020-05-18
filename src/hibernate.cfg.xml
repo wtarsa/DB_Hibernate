@@ -21,6 +21,10 @@
         <property name="use_sql_comments">true</property>
 
         <mapping class="Invoices"/>
+        <mapping class="Products"/>
+        <mapping class="OrderDetails"/>
+        <mapping class="Orders"/>
+        <mapping class="Customers"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>
