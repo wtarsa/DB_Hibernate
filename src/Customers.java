@@ -17,17 +17,17 @@ public class Customers {
     private String last_name;
     private String email_address;
     private String job_title;
-//    private String business_phone;
-//    private String home_phone;
-//    private String mobile_phone;
+    private String business_phone;
+    private String home_phone;
+    private String mobile_phone;
     private String fax_number;
     private String address;
     private String city;
-//    private String state_province;
+    private String state_province;
     private String zip_postal_code;
-//    private String country_region;
-//    private String web_page;
-//    private String notes;
+    private String country_region;
+    private String web_page;
+    private String notes;
 
     public Customers(){}
 
@@ -43,17 +43,17 @@ public class Customers {
 
     public String getLastName() { return this.last_name; }
 
-    public static int getID(String first_name, String last_name, Session session){
-        int id = -1;
+    public static Customers getID(String first_name, String last_name, Session session){
+        Customers customer = null;
         Transaction tx = session.beginTransaction();
         String hql = "FROM Customers";
         Query query = session.createQuery(hql);
         List<Customers> customers = query.list();
-        for(Customers customer: customers){
-            if(first_name.equals(customer.getFirstName()) && last_name.equals(customer.getLastName()))
-                id = customer.id;
+        for(Customers c: customers){
+            if(first_name.equals(c.getFirstName()) && last_name.equals(c.getLastName()))
+                customer = c;
         }
         tx.commit();
-        return id;
+        return customer;
     }
 }

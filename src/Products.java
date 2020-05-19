@@ -48,17 +48,17 @@ public class Products {
         tx.commit();
     }
 
-    public static String getProductName(Session session, int id){
-        String name = null;
+    public static Products getProduct(Session session, int id){
+        Products product = null;
         Transaction tx = session.beginTransaction();
         String hql = "FROM Products";
         Query query = session.createQuery(hql);
         List<Products> allProducts = query.list();
-        for(Products product: allProducts){
-            if(product.id == id) name = product.product_name;
+        for(Products p: allProducts){
+            if(p.id == id) product = p;
         }
         tx.commit();
-        return name;
+        return product;
     }
 
 }

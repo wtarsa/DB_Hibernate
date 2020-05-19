@@ -14,38 +14,38 @@ public class OrderHandler {
     }
 
     public void submitOrder(){
-        int customer_id = customerID();
+        Customers customer = customerID();
         Products.listAllProducts(session);
         String product_id = readString("Podaj id produktu");
         String quantity = readString("Podaj ilość jednostek");
-        ArrayList<Integer> product_ids = new ArrayList<>();
+        ArrayList<Products> products = new ArrayList<>();
         ArrayList<Integer> quantities = new ArrayList<>();
         while(!(product_id.equals("")) &&!(quantity.equals(""))){
-            product_ids.add(Integer.parseInt(product_id));
+            products.add(Products.getProduct(session, Integer.parseInt(product_id)));
             quantities.add(Integer.parseInt(quantity));
             product_id = readString("Podaj id produktu");
             quantity = readString("Podaj ilość jednostek");
         }
         System.out.println("Do zamówienia zostaną dodane pozycje:");
-        for(int i = 0; i < product_ids.size(); i++){
-            System.out.println(Products.getProductName(session, product_ids.get(i))
+        for(int i = 0; i < products.size(); i++){
+            System.out.println(products.get(i).getProductName()
                     + " ilość: " + quantities.get(i));
         }
         Transaction tx = session.beginTransaction();
-        Orders order = new Orders(customer_id, new Date(), Employees.getEmployee(session));
+        Orders order = new Orders(customer, new Date(), Employees.getEmployee(session));
         session.save(order);
-        for(int i = 0; i < product_ids.size(); i++){
-            OrderDetails od = new OrderDetails(product_ids.get(i), order.getOrderID(), quantities.get(i));
+        for(int i = 0; i < products.size(); i++){
+            OrderDetails od = new OrderDetails(products.get(i), order, quantities.get(i));
             session.save(od);
         }
         tx.commit();
     }
 
-    public int customerID(){
+    public Customers customerID(){
         String first_name = readString("Podaj imię");
         String last_name = readString("Podaj nazwisko");
-        int customerID = Customers.getID(first_name, last_name, session);
-        if(customerID < 0){
+        Customers c = Customers.getID(first_name, last_name, session);
+        if(c == null){
             System.out.println("Nie znaleziono klienta");
             String address = readString("Podaj ulicę");
             String city = readString("Podaj miasto");
@@ -54,9 +54,9 @@ public class OrderHandler {
             Customers customer = new Customers(first_name, last_name, address, city, zip_postal_code);
             session.save(customer);
             tx.commit();
-            customerID = Customers.getID(first_name, last_name, session);
+            c = Customers.getID(first_name, last_name, session);
         }
-        return customerID;
+        return c;
     }
 
     public static String readString(String message){

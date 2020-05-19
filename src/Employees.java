@@ -31,11 +31,11 @@ public class Employees {
 
     public Employees(){}
 
-    public static int getEmployee(Session session){
+    public static Employees getEmployee(Session session){
         String hql = "FROM Employees";
         Query query = session.createQuery(hql);
         List<Employees> employees = query.list();
         Random generator = new Random();
-        return employees.get(generator.nextInt(employees.size())).id;
+        return employees.get(generator.nextInt(employees.size()));
     }
 }

@@ -8,7 +8,9 @@ public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(insertable = false, updatable = false)
     private int order_id;
+    @Column(insertable = false, updatable = false)
     private int product_id;
     private int quantity;
     private double unit_price;
@@ -17,12 +19,19 @@ public class OrderDetails {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date_allocated;
 
+    @ManyToOne
+    private Orders order;
+
+    @ManyToOne
+    private Products product;
+
     public OrderDetails(){}
 
-    public OrderDetails(int product_id, int order_id, int quantity){
-        this.product_id = product_id;
-        this.order_id = order_id;
+    public OrderDetails(Products product, Orders order, int quantity){
+        this.product = product;
+        this.order = order;
         this.quantity = quantity;
+        this.unit_price = product.getStandardCost();
     }
 
     public int getProductID(){
