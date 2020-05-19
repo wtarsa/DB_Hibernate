@@ -33,57 +33,23 @@ public class Main {
     public static void main(final String[] args) throws Exception {
         final Session session = getSession();
         try {
-            //Products.listAllProducts(session);
+            String choice = OrderHandler.readString(
+                            "Dodawanie zamówienia - wybierz 1\n" +
+                            "Wyświetlanie raportów - wybierz 2\n" +
+                            "Wybór");
+            if(Integer.parseInt(choice) == 1) {
+                OrderHandler handler = new OrderHandler(session);
+                handler.submitOrder();
+            }
+            else if(Integer.parseInt(choice) == 2){
+                /*
+                 tutaj handler do wyswietlania raportów
+                 */
+            }
+            else{
+                System.out.println("Nieprawidłowy wybór!");
+            }
 
-            OrderHandler handler = new OrderHandler(session);
-           // handler.customerID();
-          //  handler.addNewProductToOrder();
-            handler.submitOrder();
-            //            String n = OrderHandler.readString("Podaj nazwisko");
-//            String i = OrderHandler.readString("Podaj imie");
-//            System.out.println(Customers.getID(i, n, session));
-//
-//
-//            String hql = "FROM Invoices";
-//            Query query = session.createQuery(hql);
-//            List<Invoices> allInvoices = query.list();
-//            for(Invoices invoice: allInvoices){
-//                System.out.println("id: " + invoice.id + " order_id: " +
-//                        invoice.order_id + " invoice_date: " + invoice.invoice_date);
-//            }
-//
-//            String hql_products = "FROM Products";
-//            Query query_products = session.createQuery(hql_products);
-//            List<Products> allProducts = query_products.list();
-//            for(Products product: allProducts){
-//                System.out.println(product.getProductName());
-//            }
-//
-//            String hql_order_details = "FROM OrderDetails";
-//            Query query_order_details = session.createQuery(hql_order_details);
-//            List<OrderDetails> allOrderDetails = query_order_details.list();
-//            for(OrderDetails orderDetail: allOrderDetails){
-//                System.out.println("product: " + orderDetail.getProductID() +
-//                        " order: " + orderDetail.getOrderID());
-//            }
-//
-//            String hql_orders = "FROM Orders";
-//            Query query_orders = session.createQuery(hql_orders);
-//            List<Orders> allOrders = query_orders.list();
-//            for(Orders order: allOrders){
-//                System.out.println(order.getOrderID());
-//            }
-
-//            System.out.println("querying all the managed entities...");
-            /*final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-            for (EntityType<?> entityType : metamodel.getEntities()) {
-                final String entityName = entityType.getName();
-                final Query query = session.createQuery("from " + entityName);
-                System.out.println("executing: " + query.getQueryString());
-                for (Object o : query.list()) {
-                    System.out.println("  " + o);
-                }
-            }*/
         } finally {
             session.close();
         }

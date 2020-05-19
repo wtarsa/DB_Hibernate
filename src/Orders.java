@@ -42,6 +42,9 @@ public class Orders {
         this.order_date = order_date;
         this.employee = employee;
         this.customer = customer;
+        this.ship_address = customer.getAddress();
+        this.ship_city = customer.getCity();
+        this.ship_zip_postal_code = customer.getPostalCode();
     }
 
     public int getOrderID(){

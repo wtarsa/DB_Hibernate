@@ -15,6 +15,7 @@ public class OrderHandler {
 
     public void submitOrder(){
         Customers customer = customerID();
+
         Products.listAllProducts(session);
         String product_id = readString("Podaj id produktu");
         String quantity = readString("Podaj ilość jednostek");
@@ -26,11 +27,13 @@ public class OrderHandler {
             product_id = readString("Podaj id produktu");
             quantity = readString("Podaj ilość jednostek");
         }
+
         System.out.println("Do zamówienia zostaną dodane pozycje:");
         for(int i = 0; i < products.size(); i++){
             System.out.println(products.get(i).getProductName()
                     + " ilość: " + quantities.get(i));
         }
+
         Transaction tx = session.beginTransaction();
         Orders order = new Orders(customer, new Date(), Employees.getEmployee(session));
         session.save(order);

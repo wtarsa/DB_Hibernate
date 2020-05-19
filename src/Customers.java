@@ -43,6 +43,12 @@ public class Customers {
 
     public String getLastName() { return this.last_name; }
 
+    public String getAddress() { return this.address; }
+
+    public String getCity() { return this.city; }
+
+    public String getPostalCode() { return this.zip_postal_code; }
+
     public static Customers getID(String first_name, String last_name, Session session){
         Customers customer = null;
         Transaction tx = session.beginTransaction();
