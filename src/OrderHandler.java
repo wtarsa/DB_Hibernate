@@ -13,6 +13,10 @@ public class OrderHandler {
         this.session = session;
     }
 
+    /**
+     * Realizuje zamówienie. Zbiera dane dotyczące klienta oraz zamówienia(id produktów oraz ich ilości).
+     * Zapisuje zamówienie w tabeli Orders. Zapisuje w tabeli OrderDetails szczegóły dotyczące zamawianych pozycji.
+     */
     public void submitOrder(){
         Customers customer = customerID();
 
@@ -44,6 +48,12 @@ public class OrderHandler {
         tx.commit();
     }
 
+    /**
+     * Prosi użytkownika o podanie danych klienta. Jeśli klient widnieje w bazie danych - zwraca go.
+     * Jeśli klient nie został wcześniej dodany do bazy prosi o podanie dodatkowych informacji po czym zapisuje klienta w bazie.
+     * Następnie zwraca wcześniej utworzonego klienta.
+     * @return
+     */
     public Customers customerID(){
         String first_name = readString("Podaj imię");
         String last_name = readString("Podaj nazwisko");
@@ -62,6 +72,11 @@ public class OrderHandler {
         return c;
     }
 
+    /**
+     * Wypisuje komunikat i pobiera odpowiedź od użytkownika.
+     * @param message
+     * @return
+     */
     public static String readString(String message){
         System.out.print(message + ": ");
         Scanner scanner = new Scanner(System.in);

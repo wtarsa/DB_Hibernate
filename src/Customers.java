@@ -49,6 +49,14 @@ public class Customers {
 
     public String getPostalCode() { return this.zip_postal_code; }
 
+    /**
+     * Zwraca klienta, którego imię i nazwisko jest podane w parametrach.
+     * Jeżeli klient o podanych danych nie istnieje zwraca null.
+     * @param first_name
+     * @param last_name
+     * @param session
+     * @return
+     */
     public static Customers getID(String first_name, String last_name, Session session){
         Customers customer = null;
         Transaction tx = session.beginTransaction();

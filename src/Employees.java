@@ -31,6 +31,11 @@ public class Employees {
 
     public Employees(){}
 
+    /**
+     * Zwraca losowego pracownika z tabeli Employees.
+     * @param session
+     * @return
+     */
     public static Employees getEmployee(Session session){
         String hql = "FROM Employees";
         Query query = session.createQuery(hql);

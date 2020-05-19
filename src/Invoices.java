@@ -17,8 +17,5 @@ public class Invoices {
     private int shipping;
     private int amount_due;
 
-    public Invoices(){
-
-    }
-
+    public Invoices(){}
 }

@@ -34,6 +34,11 @@ public class Products {
 
     public String getQuantityPerUnit() { return this.quantity_per_unit; }
 
+    /**
+     * Wypisuje id, nazwę, cenę oraz informację na temat ilości jednostek w opakowaniu dla każdego produktu
+     * znajdującego się w tabeli Products.
+     * @param session
+     */
     public static void listAllProducts(Session session){
         Transaction tx = session.beginTransaction();
         String hql = "FROM Products";
@@ -41,13 +46,19 @@ public class Products {
         List<Products> allProducts = query.list();
         for(Products product: allProducts){
             System.out.println("id: " + product.getProductID() +
-                    " name: " + product.getProductName() +
-                    " price: " + product.getStandardCost() +
-                    " quantity per unit: " + product.getQuantityPerUnit());
+                    " nazwa: " + product.getProductName() +
+                    " cena: " + product.getStandardCost() +
+                    " ilość w opakowaniu: " + product.getQuantityPerUnit());
         }
         tx.commit();
     }
 
+    /**
+     * Zwraca produkt o podanym id. Jeżeli tabela nie zawiera produktu o podanym id zwraca null.
+     * @param session
+     * @param id
+     * @return
+     */
     public static Products getProduct(Session session, int id){
         Products product = null;
         Transaction tx = session.beginTransaction();
