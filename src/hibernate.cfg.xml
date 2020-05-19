@@ -16,16 +16,17 @@
         <property name="connection.password">
             okonokon
         </property>
-        <property name="format_sql">true</property>
-        <property name="show_sql">true</property>
-        <property name="use_sql_comments">true</property>
+<!--        <property name="format_sql">true</property>-->
+<!--        <property name="show_sql">true</property>-->
+<!--        <property name="use_sql_comments">true</property>-->
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="Invoices"/>
         <mapping class="Products"/>
         <mapping class="OrderDetails"/>
         <mapping class="Orders"/>
         <mapping class="Customers"/>
+        <mapping class="Employees"/>
         <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     </session-factory>
 </hibernate-configuration>

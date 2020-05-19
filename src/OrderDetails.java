@@ -6,11 +6,11 @@ import java.util.Date;
 public class OrderDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int order_id;
     private int product_id;
-    private double quantity;
+    private int quantity;
     private double unit_price;
     private double discount;
     private int status_id;
@@ -18,6 +18,12 @@ public class OrderDetails {
     private Date date_allocated;
 
     public OrderDetails(){}
+
+    public OrderDetails(int product_id, int order_id, int quantity){
+        this.product_id = product_id;
+        this.order_id = order_id;
+        this.quantity = quantity;
+    }
 
     public int getProductID(){
         return this.product_id;

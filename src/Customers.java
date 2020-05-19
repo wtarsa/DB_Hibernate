@@ -10,26 +10,34 @@ import java.util.List;
 public class Customers {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String company;
     private String first_name;
     private String last_name;
     private String email_address;
     private String job_title;
-    private String business_phone;
-    private String home_phone;
-    private String mobile_phone;
+//    private String business_phone;
+//    private String home_phone;
+//    private String mobile_phone;
     private String fax_number;
     private String address;
     private String city;
-    private String state_province;
+//    private String state_province;
     private String zip_postal_code;
-    private String country_region;
-    private String web_page;
-    private String notes;
+//    private String country_region;
+//    private String web_page;
+//    private String notes;
 
     public Customers(){}
+
+    public Customers(String first_name, String last_name, String address, String city, String zip_postal_code){
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.address = address;
+        this.city = city;
+        this.zip_postal_code = zip_postal_code;
+    }
 
     public String getFirstName() { return this.first_name; }
 

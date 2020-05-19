@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "products")
 public class Products {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String supplier_ids;
     private String product_code;
@@ -46,6 +46,19 @@ public class Products {
                     " quantity per unit: " + product.getQuantityPerUnit());
         }
         tx.commit();
+    }
+
+    public static String getProductName(Session session, int id){
+        String name = null;
+        Transaction tx = session.beginTransaction();
+        String hql = "FROM Products";
+        Query query = session.createQuery(hql);
+        List<Products> allProducts = query.list();
+        for(Products product: allProducts){
+            if(product.id == id) name = product.product_name;
+        }
+        tx.commit();
+        return name;
     }
 
 }

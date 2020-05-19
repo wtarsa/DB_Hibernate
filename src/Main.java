@@ -33,10 +33,17 @@ public class Main {
     public static void main(final String[] args) throws Exception {
         final Session session = getSession();
         try {
-            Products.listAllProducts(session);
-            String n = "Li";
-            String i = "George";
-            System.out.println(Customers.getID(i, n, session));
+            //Products.listAllProducts(session);
+
+            OrderHandler handler = new OrderHandler(session);
+           // handler.customerID();
+          //  handler.addNewProductToOrder();
+            handler.submitOrder();
+            //            String n = OrderHandler.readString("Podaj nazwisko");
+//            String i = OrderHandler.readString("Podaj imie");
+//            System.out.println(Customers.getID(i, n, session));
+//
+//
 //            String hql = "FROM Invoices";
 //            Query query = session.createQuery(hql);
 //            List<Invoices> allInvoices = query.list();
