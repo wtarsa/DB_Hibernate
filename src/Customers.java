@@ -39,6 +39,7 @@ public class Customers {
         this.zip_postal_code = zip_postal_code;
     }
 
+
     public String getFirstName() { return this.first_name; }
 
     public String getLastName() { return this.last_name; }
@@ -69,5 +70,20 @@ public class Customers {
         }
         tx.commit();
         return customer;
+    }
+
+    public static void showAllCustomers(Session session) {
+        Transaction tx = session.beginTransaction();
+        String hql = "FROM Customers";
+        Query query = session.createQuery(hql);
+        List<Customers> customers = query.list();
+        for (Customers c : customers) {
+            System.out.println(
+                    "id: " + c.id + "\t\t" +
+                    "name: " + c.first_name + "\t\t\t" +
+                            "lastname: " + c.last_name + "\t\t\t" +
+                            "address: " + c.address + "\t\t" + c.city + "\t\t" + c.zip_postal_code
+            );
+        }
     }
 }

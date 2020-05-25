@@ -27,6 +27,7 @@
         <mapping class="Orders"/>
         <mapping class="Customers"/>
         <mapping class="Employees"/>
+        <mapping class="Suppliers"/>
         <!-- DB schema will be updated if needed -->
     </session-factory>
 </hibernate-configuration>
