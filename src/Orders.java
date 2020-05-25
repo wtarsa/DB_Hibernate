@@ -57,6 +57,13 @@ public class Orders {
         return this.id;
     }
 
+    /**
+     * Wyświetla zamówienia, które zostały złożone w podanym dniu.
+     * @param year
+     * @param month
+     * @param day
+     * @param session
+     */
     public static void showOrders(int year, int month, int day, Session session){
         Transaction tx = session.beginTransaction();
         String hql = "FROM Orders";
@@ -77,6 +84,11 @@ public class Orders {
         tx.commit();
     }
 
+    /**
+     * Wyświetla wszystkie zamówienia osoby o podanym id.
+     * @param customer_id
+     * @param session
+     */
     public static void showOrders(int customer_id, Session session){
         Transaction tx = session.beginTransaction();
         String hql = "FROM Orders";

@@ -72,6 +72,10 @@ public class Customers {
         return customer;
     }
 
+    /**
+     * Wyświetla wszystkich klientów istniejących w tabeli customers.
+     * @param session
+     */
     public static void showAllCustomers(Session session) {
         Transaction tx = session.beginTransaction();
         String hql = "FROM Customers";

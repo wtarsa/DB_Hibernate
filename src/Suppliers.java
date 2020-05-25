@@ -31,6 +31,10 @@ public class Suppliers {
 
     public Suppliers(){}
 
+    /**
+     * Wyświetla dostawców istniejących w tabeli suppliers.
+     * @param session
+     */
     public static void showAllSuppliers(Session session) {
         Transaction tx = session.beginTransaction();
         String hql = "FROM Suppliers";
