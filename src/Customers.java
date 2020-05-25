@@ -85,5 +85,6 @@ public class Customers {
                             "address: " + c.address + "\t\t" + c.city + "\t\t" + c.zip_postal_code
             );
         }
+        tx.commit();
     }
 }

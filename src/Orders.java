@@ -1,5 +1,11 @@
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 @Entity
 @Table(name = "orders")
@@ -49,6 +55,42 @@ public class Orders {
 
     public int getOrderID(){
         return this.id;
+    }
+
+    public static void showOrders(int year, int month, int day, Session session){
+        Transaction tx = session.beginTransaction();
+        String hql = "FROM Orders";
+        Query query = session.createQuery(hql);
+        List<Orders> orders = query.list();
+        for(Orders o: orders){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(o.order_date);
+            if(year == calendar.get(Calendar.YEAR)
+                    && (month-1) == calendar.get(Calendar.MONTH)
+                    && day == calendar.get(Calendar.DAY_OF_MONTH))
+                System.out.println("id: " + o.id + "\t\t" +
+                        "customer: " + o.customer_id + "\t\t" +
+                        "order_date: " + o.order_date + "\t\t" +
+                        "ship_name: " + o.ship_name);
+
+        }
+        tx.commit();
+    }
+
+    public static void showOrders(int customer_id, Session session){
+        Transaction tx = session.beginTransaction();
+        String hql = "FROM Orders";
+        Query query = session.createQuery(hql);
+        List<Orders> orders = query.list();
+        for(Orders o: orders){
+            if(o.customer_id == customer_id){
+                System.out.println("id: " + o.id + "\t\t" +
+                        "customer: " + o.customer_id + "\t\t" +
+                        "order_date: " + o.order_date + "\t\t" +
+                        "ship_name: " + o.ship_name);
+            }
+        }
+        tx.commit();
     }
 
 }

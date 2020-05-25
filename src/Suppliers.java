@@ -45,6 +45,7 @@ public class Suppliers {
                             "address: " + s.address + "\t\t" + s.city + "\t\t" + s.zip_postal_code
             );
         }
+        tx.commit();
     }
 
 }
