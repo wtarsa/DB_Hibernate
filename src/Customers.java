@@ -78,15 +78,14 @@ public class Customers {
      */
     public static void showAllCustomers(Session session) {
         Transaction tx = session.beginTransaction();
-        String hql = "FROM Customers";
-        Query query = session.createQuery(hql);
-        List<Customers> customers = query.list();
-        for (Customers c : customers) {
+        List<Object[]> customers = session.createQuery("SELECT id, first_name, last_name, address, city, zip_postal_code FROM Customers").getResultList();
+
+        for (Object[] c : customers) {
             System.out.println(
-                    "id: " + c.id + "\t\t" +
-                    "name: " + c.first_name + "\t\t\t" +
-                            "lastname: " + c.last_name + "\t\t\t" +
-                            "address: " + c.address + "\t\t" + c.city + "\t\t" + c.zip_postal_code
+                    "id: " + c[0] + "\t\t" +
+                    "name: " + c[1] + "\t\t\t" +
+                            "lastname: " + c[2] + "\t\t\t" +
+                            "address: " + c[3] + "\t\t" + c[4] + "\t\t" + c[5]
             );
         }
         tx.commit();

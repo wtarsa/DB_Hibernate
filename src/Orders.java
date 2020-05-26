@@ -2,6 +2,7 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -66,20 +67,18 @@ public class Orders {
      */
     public static void showOrders(int year, int month, int day, Session session){
         Transaction tx = session.beginTransaction();
-        String hql = "FROM Orders";
-        Query query = session.createQuery(hql);
-        List<Orders> orders = query.list();
-        for(Orders o: orders){
+        List<Objects[]> orders = session.createQuery("SELECT o.id, c.first_name, c.last_name, o.order_date, o.ship_name FROM Orders o JOIN Customers c on o.customer_id = c.id").getResultList();
+
+        for(Object[] o: orders){
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(o.order_date);
+            calendar.setTime((Date)o[3]);
             if(year == calendar.get(Calendar.YEAR)
                     && (month-1) == calendar.get(Calendar.MONTH)
                     && day == calendar.get(Calendar.DAY_OF_MONTH))
-                System.out.println("id: " + o.id + "\t\t" +
-                        "customer: " + o.customer_id + "\t\t" +
-                        "order_date: " + o.order_date + "\t\t" +
-                        "ship_name: " + o.ship_name);
-
+                System.out.println("id: " + o[0] + "\t\t" +
+                        "customer: " + o[1] + " " + o[2] + "\t\t" +
+                        "order_date: " + o[3] + "\t\t" +
+                        "ship_name: " + o[4]);
         }
         tx.commit();
     }
@@ -91,15 +90,14 @@ public class Orders {
      */
     public static void showOrders(int customer_id, Session session){
         Transaction tx = session.beginTransaction();
-        String hql = "FROM Orders";
-        Query query = session.createQuery(hql);
-        List<Orders> orders = query.list();
-        for(Orders o: orders){
-            if(o.customer_id == customer_id){
-                System.out.println("id: " + o.id + "\t\t" +
-                        "customer: " + o.customer_id + "\t\t" +
-                        "order_date: " + o.order_date + "\t\t" +
-                        "ship_name: " + o.ship_name);
+        List<Object[]> orders = session.createQuery("SELECT o.id, c.id, c.first_name, c.last_name, o.order_date, o.ship_name FROM Orders o JOIN Customers c ON o.customer_id = c.id").getResultList();
+
+        for(Object[] o: orders){
+            if((Integer)o[1] == customer_id){
+                System.out.println("id: " + o[0] + "\t\t" +
+                        "customer: " + o[2] + " " + o[3] + "\t\t" +
+                        "order_date: " + o[4] + "\t\t" +
+                        "ship_name: " + o[5]);
             }
         }
         tx.commit();

@@ -37,16 +37,15 @@ public class Suppliers {
      */
     public static void showAllSuppliers(Session session) {
         Transaction tx = session.beginTransaction();
-        String hql = "FROM Suppliers";
-        Query query = session.createQuery(hql);
-        List<Suppliers> suppliers = query.list();
-        for (Suppliers s : suppliers) {
+        List<Object[]> suppliers = session.createQuery("SELECT id, company, first_name, last_name, address, city, zip_postal_code FROM Suppliers").getResultList();
+
+        for (Object[] s : suppliers) {
             System.out.println(
-                    "id: " + s.id + "\t\t" +
-                            "company: " + s.company + "\t\t\t" +
-                            "name: " + s.first_name + "\t\t\t" +
-                            "lastname: " + s.last_name + "\t\t\t" +
-                            "address: " + s.address + "\t\t" + s.city + "\t\t" + s.zip_postal_code
+                    "id: " + s[0] + "\t\t" +
+                            "company: " + s[1] + "\t\t\t" +
+                            "name: " + s[2] + "\t\t\t" +
+                            "lastname: " + s[3] + "\t\t\t" +
+                            "address: " + s[4] + "\t\t" + s[5] + "\t\t" + s[6]
             );
         }
         tx.commit();
