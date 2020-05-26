@@ -37,6 +37,7 @@ public class Main {
             String choice = OrderHandler.readString(
                     "Dodawanie zamówienia - wybierz 1\n" +
                             "Wyświetlanie raportów - wybierz 2\n" +
+                            "Generowanie faktury - wybierz 3\n" +
                             "Wybór");
             if (Integer.parseInt(choice) == 1) {
                 OrderHandler handler = new OrderHandler(session);
@@ -73,6 +74,10 @@ public class Main {
                 else{
                     System.out.println("Nieprawidłowy wybór!");
                 }
+            }
+            else if (Integer.parseInt(choice) == 3) {
+                InvoiceHandler handler = new InvoiceHandler(session);
+                handler.createInvoice();
             }
             else {
                 System.out.println("Nieprawidłowy wybór!");
