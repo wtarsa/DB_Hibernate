@@ -21,7 +21,7 @@ public class InvoiceHandler {
         int order_id = Integer.parseInt(OrderHandler.readString("Podaj ID zamówienia"));
 
         Transaction tx = session.beginTransaction();
-        List<Object[]> invoices = session.createQuery("SELECT o.order_id, p.product_name, p.category, o.quantity, o.unit_price FROM OrderDetails o JOIN Products p ON o.id = p.id").getResultList();
+        List<Object[]> invoices = session.createQuery("SELECT o.order_id, p.product_name, p.category, o.quantity, o.unit_price FROM OrderDetails o JOIN Products p ON o.product_id = p.id").getResultList();
 
         int no_results = 0;
         for(Object[] i: invoices){
